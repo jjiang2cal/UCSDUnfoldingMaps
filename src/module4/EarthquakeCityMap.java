@@ -20,7 +20,7 @@ import processing.core.PApplet;
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
  * Author: UC San Diego Intermediate Software Development MOOC team
- * @author Your name here
+ * @author Jingjing
  * Date: July 17, 2015
  * */
 public class EarthquakeCityMap extends PApplet {
@@ -141,8 +141,35 @@ public class EarthquakeCityMap extends PApplet {
 		textSize(12);
 		text("Earthquake Key", 50, 75);
 		
+		// triangle markers for cities
 		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
+		triangle(60, 100 - 6, 60 - 5, 100 + 4, 60 + 5, 100 + 4);
+		
+		// circle markers for land quakes
+		fill(color(255, 255, 255));
+		ellipse(60, 120, 10, 10);
+		
+		// square marker for ocean quakes
+		rect(60 - 5, 140 - 5, 10, 10);
+		
+		// circle markers for depth
+		fill(255, 255, 0);
+		ellipse(60, 200, 8, 8);
+		fill(0, 0, 255);
+		ellipse(60, 220, 8, 8);
+		fill(255, 0, 0);
+		ellipse(60, 240, 8, 8);
+		
+		fill(0, 0, 0);
+		text("City Marker", 75, 100 - 2);
+		text("Land Quake", 75, 120 - 2);
+		text("Ocean Quake", 75, 140 - 2);
+		text("Size - Magnitude", 50, 160);
+		
+		text("Shallow", 75, 200 - 2);
+		text("Intermediate", 75, 220 - 2);
+		text("Deep", 75, 240 - 2);
+	/*	ellipse(50, 125, 15, 15);	
 		fill(color(255, 255, 0));
 		ellipse(50, 175, 10, 10);
 		fill(color(0, 0, 255));
@@ -152,6 +179,7 @@ public class EarthquakeCityMap extends PApplet {
 		text("5.0+ Magnitude", 75, 125);
 		text("4.0+ Magnitude", 75, 175);
 		text("Below 4.0", 75, 225);
+	*/
 	}
 
 	
@@ -166,6 +194,11 @@ public class EarthquakeCityMap extends PApplet {
 		
 		// TODO: Implement this method using the helper method isInCountry
 		
+		for (Marker country : countryMarkers) {
+			if (isInCountry(earthquake, country))
+			    return true;
+		}
+		
 		// not inside any country
 		return false;
 	}
@@ -179,6 +212,26 @@ public class EarthquakeCityMap extends PApplet {
 	private void printQuakes() 
 	{
 		// TODO: Implement this method
+		int numQuakesOcean = 0;
+		
+		for (Marker country : countryMarkers) {
+			int numOfQuakes = 0;
+			String nameOfCountry = (String) country.getProperty("name");			
+			for (Marker quake : quakeMarkers) {
+				if (quake instanceof LandQuakeMarker)
+					if (nameOfCountry == ((LandQuakeMarker)quake).getCountry()) 
+						numOfQuakes ++;						
+			}	
+			if (numOfQuakes > 0)
+				System.out.println(nameOfCountry + " : " + numOfQuakes);
+		}
+		
+		for (Marker quake : quakeMarkers) {			
+			if (quake instanceof OceanQuakeMarker)
+				numQuakesOcean ++;
+		}
+		System.out.println("Earthquakes in ocean: " + numQuakesOcean);
+	
 	}
 	
 	

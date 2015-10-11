@@ -9,7 +9,7 @@ import processing.core.PGraphics;
 /** Implements a visual marker for cities on an earthquake map
  * 
  * @author UC San Diego Intermediate Software Development MOOC team
- * @author Your name here
+ * @author Jingjing
  *
  */
 public class CityMarker extends SimplePointMarker {
@@ -43,6 +43,8 @@ public class CityMarker extends SimplePointMarker {
 		pg.pushStyle();
 		
 		// TODO: Add code to draw a triangle to represent the CityMarker
+		pg.fill(255, 0, 0);
+		pg.triangle(x, y-6, x - 5, y + 4, x + 5, y + 4);
 		
 		// Restore previous drawing style
 		pg.popStyle();
