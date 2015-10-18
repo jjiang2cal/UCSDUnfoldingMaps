@@ -2,6 +2,7 @@ package module6;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -21,7 +22,7 @@ import processing.core.PApplet;
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
  * Author: UC San Diego Intermediate Software Development MOOC team
- * @author Your name here
+ * @author Jingjing
  * Date: July 17, 2015
  * */
 public class EarthquakeCityMap extends PApplet {
@@ -117,6 +118,8 @@ public class EarthquakeCityMap extends PApplet {
 
 	    // could be used for debugging
 	    printQuakes();
+	    int numToPrint = 20;
+	    sortAndPrint(numToPrint);
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
@@ -139,6 +142,14 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO: Add the method:
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
+	private void sortAndPrint(int numToPrint) {
+		Object [] quakeArray = quakeMarkers.toArray();
+		Arrays.sort(quakeArray);
+		int len = quakeArray.length;
+		for (int i = 0; i < len && i < numToPrint; i++)
+			System.out.println(quakeArray[i]);
+		
+	}
 	
 	/** Event handler that gets called automatically when the 
 	 * mouse moves.
